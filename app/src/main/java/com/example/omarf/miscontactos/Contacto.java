@@ -7,9 +7,11 @@ public class Contacto {
     private String nombre;
     private String telefono;
     private String email;
+    private int foto;
 
-    //Contructor que indica que para que exista el registro, como minimo deben ser estos 2 campos
+    //Contructor que indica que para que exista el registro, como minimo deben ser estos 3 campos.
     public Contacto(String nombre, String telefono, String email) {
+        this.foto = foto;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
@@ -37,5 +39,13 @@ public class Contacto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getFoto() {
+        return foto;
+    }
+
+    public void setFoto(int foto) {
+        this.foto = foto;
     }
 }

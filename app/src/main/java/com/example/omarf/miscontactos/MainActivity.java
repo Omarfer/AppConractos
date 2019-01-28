@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         contactos = new ArrayList<Contacto>(); //2 TODO: INSTANCIAMOS
 
         //3 TODO: Agregamos campos al ArrayList, según minimo requerimientos del constructor de Contacto.
-        contactos.add(new Contacto("Anahí Salagdo", "987654679", "anahi@gmail.com"));
+        contactos.add(new Contacto("Anahí Salagdo", "987654679", "anahi@gmail.com"));//Nombre, Telefono, Email
         contactos.add(new Contacto("Omar Fernando", "973984497", "omarfer007@gmail.com"));
         contactos.add(new Contacto("Cindy Lorena", "987654679", "cindy@gmail.com"));
         contactos.add(new Contacto("Sandra García", "987654679", "samorales@gmail.com"));
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             nombresContacto.add(contacto.getNombre());//Agarramos los Nombres
         }
 
-        //4 TODO: Hacemos el casteo, encontramos el id del ListView lstContactos
+        //4 TODO: Hacemos un casteo, encontramos el id del ListView lstContactos
         ListView lstContactos = (ListView) findViewById(R.id.lstContactos);
 
         //5 TODO: Para llenar una lista de contactos necesitamos un Adaptador, este adapter recibe un arreglo(ArrayAdpter)
