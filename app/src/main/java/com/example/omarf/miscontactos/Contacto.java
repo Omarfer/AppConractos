@@ -10,7 +10,7 @@ public class Contacto {
     private int foto;
 
     //Contructor que indica que para que exista el registro, como minimo deben ser estos 3 campos.
-    public Contacto(String nombre, String telefono, String email) {
+    public Contacto(int foto, String nombre, String telefono, String email) {
         this.foto = foto;
         this.nombre = nombre;
         this.telefono = telefono;
