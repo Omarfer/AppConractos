@@ -1,12 +1,17 @@
 package com.example.omarf.miscontactos;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,10 +19,12 @@ import java.util.ArrayList;
 public class ContactoAdaptador extends RecyclerView.Adapter<ContactoAdaptador.ContactoViewHolder> {
     //Traemos el mopdelo Contacto
     ArrayList<Contacto> contactos;
+    Activity activity;
 
     //Constructor de ContactoAdaptador
-    public ContactoAdaptador(ArrayList<Contacto> contactos){
+    public ContactoAdaptador(ArrayList<Contacto> contactos, Activity activity){
         this.contactos = contactos;
+        this.activity = activity;
     }
 
     // 3 TODO: Y se debe crear(GENERAR) sus 3 constructores!!
@@ -32,10 +39,29 @@ public class ContactoAdaptador extends RecyclerView.Adapter<ContactoAdaptador.Co
     @Override
     //Asocia cada elemento de la lista con cada view
     public void onBindViewHolder(@NonNull ContactoViewHolder contactoViewHolder, int position) {
-        Contacto contacto = contactos.get(position);
+        final Contacto contacto = contactos.get(position);
         contactoViewHolder.imgFoto.setImageResource(contacto.getFoto());
         contactoViewHolder.tvNombreCV.setText(contacto.getNombre());
         contactoViewHolder.tvTelefonoCV.setText(contacto.getTelefono());
+
+        contactoViewHolder.imgFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, DetalleContacto.class);
+                i.putExtra("nombre", contacto.getNombre());
+                i.putExtra("telefono", contacto.getTelefono());
+                i.putExtra("email", contacto.getEmail());
+                activity.startActivity(i);
+            }
+        });
+
+        contactoViewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, "Diste Like a " + contacto.getNombre(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -50,6 +76,7 @@ public class ContactoAdaptador extends RecyclerView.Adapter<ContactoAdaptador.Co
         private ImageView imgFoto;
         private TextView tvNombreCV;
         private TextView tvTelefonoCV;
+        private ImageButton btnLike;
 
         //Necesitamos un Contructor con el mismo nombre de la superclase
         public ContactoViewHolder(@NonNull View itemView) {
@@ -58,6 +85,7 @@ public class ContactoAdaptador extends RecyclerView.Adapter<ContactoAdaptador.Co
             imgFoto      = itemView.findViewById(R.id.imgFoto);
             tvNombreCV   = itemView.findViewById(R.id.tvNombreCV);
             tvTelefonoCV = itemView.findViewById(R.id.tvTelefonoCV);
+            btnLike      = itemView.findViewById(R.id.btnLike);
         }
     }
 }

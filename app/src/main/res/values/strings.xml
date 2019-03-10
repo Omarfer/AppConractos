@@ -7,4 +7,12 @@
     <string name="ptelefono">telefono</string>
     <string name="pemail">email</string>
     <string name="title_activity_toolbar_guide">ToolbarGuide</string>
+
+    <!--String Formats to email, phone, Email-->
+    <string name="contacto_telefono_valor_format">tel:%1$s</string>
+    <string name="contacto_email_Email">Contacto por app Conductor</string>
+    <string name="contacto_email_subject">Contacto por app Conductor</string>
+    <string name="contacto_email_body">Contacto por app Conductor</string>
+    <string name="contacto_email_title">Enviar correo Electrónico</string>
+
 </resources>

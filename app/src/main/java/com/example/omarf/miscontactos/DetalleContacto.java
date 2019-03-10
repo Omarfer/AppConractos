@@ -1,26 +1,29 @@
 package com.example.omarf.miscontactos;
 
-import android.Manifest;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-public class DetalleContacto extends AppCompatActivity {
+import com.example.omarf.miscontactos.Utils.IntentUtils;
+
+public class DetalleContacto extends AppCompatActivity implements View.OnClickListener {
 
     //Declaramos de manera global los TextViews
     private TextView tvNombre;
     private TextView tvTelefono;
     private TextView tvEmail;
+    private IntentUtils intentUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); REVISAR BOTTON UP
+
+        intentUtils = new IntentUtils(this);
         setContentView(R.layout.activity_detalle_contacto);
 
         //1 TODO: Recibiremos los intent.putExtras de la clase MainActivity
@@ -39,36 +42,28 @@ public class DetalleContacto extends AppCompatActivity {
         tvNombre.setText(nombre);
         tvTelefono.setText(telefono);
         tvEmail.setText(email);
+
+        tvEmail.setOnClickListener(this);
+        tvTelefono.setOnClickListener(this);
+
         //TODO hasta aquí ya funciona para poder ver un detalle correspondiente a su item seleccionado
     }
 
 
     //4 TODO: EMPEZAREMOS a implementar los INTENTS IMPLICITOS!:
+    //Ejecutamos llamadas y email:
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.tvTelefono:
+                String telefono = tvTelefono.getText().toString();
+                intentUtils.intentCall(getString(R.string.contacto_telefono_valor_format, telefono));
+                break;
 
-    //Creamos un método para ejecutar una llamada
-    public void llamar(View v){
-        String telefono = tvTelefono.getText().toString();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case whese the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+            case R.id.tvEmail:
+                String email = tvEmail.getText().toString();
+                intentUtils.intentEmail(email, getString(R.string.contacto_email_subject), getString(R.string.contacto_email_body), getString(R.string.contacto_email_title));
+                break;
         }
-        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telefono)));
-    }
-
-    //Creamos Metodo para Envar Email
-    public void enviarMail(View v){
-        String email = tvEmail.getText().toString();
-        Intent emailIntent = new Intent((Intent.ACTION_SEND));
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-        emailIntent.setType("message/rfc822");
-        startActivity(Intent.createChooser(emailIntent, "Email "));
     }
 
     //TODO: Usar esto en caso de usar un finish() en Intent en el MainAcivity, para regresar

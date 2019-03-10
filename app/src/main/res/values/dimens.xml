@@ -4,4 +4,5 @@
     <dimen name="nombre_cardview">20sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="elevation_actionbar">4dp</dimen>
 </resources>
