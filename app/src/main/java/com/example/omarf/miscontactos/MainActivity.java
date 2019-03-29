@@ -1,18 +1,17 @@
 package com.example.omarf.miscontactos;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Contacto> contactos; //1 TODO: Declaramos nuestro ArrayList que tiene su Modelo Contacto
     private RecyclerView rvContactos;
+    //private CardView cvContacto;
     public ContactoAdaptador adaptador;
 
     @Override
@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         rvContactos = findViewById(R.id.rvContactos);
+        //cvContacto = findViewById(R.id.cvContacto);
+
+        registerForContextMenu(rvContactos);//Para el ContextMenu en el CardView
 
         /*LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);*/
@@ -86,9 +89,63 @@ public class MainActivity extends AppCompatActivity {
         //3 TODO: Agregamos campos al ArrayList, según minimo requerimientos del constructor de Contacto.
         contactos.add(new Contacto(R.drawable.images, "Anahí Salagdo", "987654679", "anahi@gmail.com"));//Nombre, Telefono, Email
         contactos.add(new Contacto(R.drawable.doctor, "Omar Fernando", "973984497", "omarfer007@gmail.com"));
+        contactos.add(new Contacto(R.drawable.reem, "Reem Alghamdi", "987654679", "remokshine@gmail.com"));
         contactos.add(new Contacto(R.drawable.cindy,"Cindy Lorena", "987654679", "cindy@gmail.com"));
         contactos.add(new Contacto(R.drawable.sam,"Sandra García", "987654679", "samorales@gmail.com"));
         contactos.add(new Contacto(R.drawable.phone,"Pilar Malafaya", "987654679", "pilarmala@gmail.com"));
-        contactos.add(new Contacto(R.drawable.reem, "Reem Alghamdi", "987654679", "remokshine@gmail.com"));
+    }
+
+    //TODO: MENÚS =============================================================================================================
+
+    //Menú de Opciones
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_opciones, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+            case R.id.mAbout:
+                Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.mSettings:
+                Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Menu de Contexto
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        getMenuInflater().inflate(R.menu.menu_contexto, menu);
+//    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int position = -1;
+        try {
+            position = ((ContactoAdaptador)rvContactos.getAdapter()).getPosition();
+        } catch (Exception e) {
+            return super.onContextItemSelected(item);
+        }
+
+        switch (item.getItemId()){
+            case R.id.mEditar:
+                Toast.makeText(this, "Editar Selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mEliminar:
+                Toast.makeText(this, "Eliminar Selected", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

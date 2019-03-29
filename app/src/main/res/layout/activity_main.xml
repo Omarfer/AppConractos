@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include android:id="@+id/miActionBar"
-        layout="@layout/activity_toolbar_guide"/>
+    <!--<include android:id="@+id/miActionBar"-->
+        <!--layout="@layout/activity_toolbar_guide"/>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvContactos"

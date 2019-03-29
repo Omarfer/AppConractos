@@ -14,5 +14,9 @@
     <string name="contacto_email_subject">Contacto por app Conductor</string>
     <string name="contacto_email_body">Contacto por app Conductor</string>
     <string name="contacto_email_title">Enviar correo Electrónico</string>
+    <string name="About">About</string>
+    <string name="Setting">Settings</string>
+    <string name="mEliminar">Eliminar</string>
+    <string name="mEditar">Editar</string>
 
 </resources>
